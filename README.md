@@ -150,3 +150,6 @@ Trong file seeder, bạn có thể sử dụng factory để tạo dữ liệu g
 
 ## 11. Tài liệu tham khảo
 - [Laravel Official Documentation](https://laravel.com/docs)
+- [Laravel UI](https://github.com/laravel/ui)
+- [Spatie](https://github.com/laravel/ui](https://spatie.be/docs/laravel-permission/v5/introduction))
+- [Password-hash](https://onlinephp.io/password-hash)
