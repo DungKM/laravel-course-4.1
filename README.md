@@ -117,5 +117,36 @@ php artisan --version
   php artisan make:migration create_table_name_table
   ```
 
-## 10. Tài liệu tham khảo
+## 10. Factory và Seeder
+### Tạo Factory
+- Tạo một factory mới:
+  ```bash
+  php artisan make:factory FactoryName --model=ModelName
+  ```
+  > Thay `FactoryName` bằng tên factory và `ModelName` bằng tên model mà bạn muốn liên kết.
+
+### Tạo Seeder
+- Tạo một seeder mới:
+  ```bash
+  php artisan make:seeder SeederName
+  ```
+
+### Chạy Seeder
+- Chạy một seeder cụ thể:
+  ```bash
+  php artisan db:seed --class=SeederName
+  ```
+
+- Chạy tất cả các seeder:
+  ```bash
+  php artisan db:seed
+  ```
+
+### Sử dụng Factory trong Seeder
+Trong file seeder, bạn có thể sử dụng factory để tạo dữ liệu giả lập:
+```php
+\App\Models\ModelName::factory()->count(10)->create();
+```
+
+## 11. Tài liệu tham khảo
 - [Laravel Official Documentation](https://laravel.com/docs)
