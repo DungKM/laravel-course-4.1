@@ -1,155 +1,66 @@
-# Laravel Basic Commands
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-## 1. Cài đặt Laravel
-### Yêu cầu:
-- PHP >= 8.1
-- Composer
-- MySQL hoặc cơ sở dữ liệu tương thích
-- Web server (Apache/Nginx)
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-### Cài đặt Laravel qua Composer
-```bash
-composer create-project --prefer-dist laravel/laravel my-project
-```
-> Thay thế `my-project` bằng tên thư mục bạn muốn sử dụng.
+## About Laravel
 
-## 2. Cấu hình môi trường
-### Tạo file `.env`
-Nếu file `.env` chưa tồn tại:
-```bash
-cp .env.example .env
-```
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-### Tạo khóa ứng dụng
-```bash
-php artisan key:generate
-```
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-## 3. Thiết lập cơ sở dữ liệu
-- Mở file `.env` và cập nhật thông tin kết nối cơ sở dữ liệu:
-  ```
-  DB_CONNECTION=mysql
-  DB_HOST=127.0.0.1
-  DB_PORT=3306
-  DB_DATABASE=your_database_name
-  DB_USERNAME=your_username
-  DB_PASSWORD=your_password
-  ```
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-- Chạy lệnh migration để tạo các bảng cơ sở dữ liệu:
-  ```bash
-  php artisan migrate
-  ```
+## Learning Laravel
 
-## 4. Chạy server cục bộ
-Khởi chạy server Laravel:
-```bash
-php artisan serve
-```
-Server sẽ chạy tại địa chỉ: `http://127.0.0.1:8000`
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-## 5. Quản lý package
-Cài đặt package mới qua Composer:
-```bash
-composer require package-name
-```
+You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-Cập nhật các package:
-```bash
-composer update
-```
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## 6. Xây dựng tài sản tĩnh (Assets)
-Nếu sử dụng Laravel Mix hoặc Vite:
-- Cài đặt Node.js:
-  ```bash
-  npm install
-  ```
+## Laravel Sponsors
 
-- Xây dựng assets:
-  ```bash
-  npm run dev
-  ```
-  hoặc:
-  ```bash
-  npm run build
-  ```
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-## 7. Debugging và cache
-### Xóa cache ứng dụng
-```bash
-php artisan cache:clear
-```
+### Premium Partners
 
-### Xóa cache cấu hình
-```bash
-php artisan config:clear
-```
+- **[Vehikl](https://vehikl.com/)**
+- **[Tighten Co.](https://tighten.co)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[64 Robots](https://64robots.com)**
+- **[Cubet Techno Labs](https://cubettech.com)**
+- **[Cyber-Duck](https://cyber-duck.co.uk)**
+- **[Many](https://www.many.co.uk)**
+- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
+- **[DevSquad](https://devsquad.com)**
+- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
+- **[OP.GG](https://op.gg)**
+- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
+- **[Lendio](https://lendio.com)**
 
-### Xóa cache route
-```bash
-php artisan route:clear
-```
+## Contributing
 
-## 8. Kiểm tra phiên bản Laravel
-```bash
-php artisan --version
-```
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## 9. Các lệnh Artisan hữu ích khác
-- Hiển thị danh sách tất cả các lệnh Artisan:
-  ```bash
-  php artisan list
-  ```
+## Code of Conduct
 
-- Tạo một controller:
-  ```bash
-  php artisan make:controller ControllerName
-  ```
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-- Tạo một model:
-  ```bash
-  php artisan make:model ModelName
-  ```
+## Security Vulnerabilities
 
-- Tạo một migration:
-  ```bash
-  php artisan make:migration create_table_name_table
-  ```
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## 10. Factory và Seeder
-### Tạo Factory
-- Tạo một factory mới:
-  ```bash
-  php artisan make:factory FactoryName --model=ModelName
-  ```
-  > Thay `FactoryName` bằng tên factory và `ModelName` bằng tên model mà bạn muốn liên kết.
+## License
 
-### Tạo Seeder
-- Tạo một seeder mới:
-  ```bash
-  php artisan make:seeder SeederName
-  ```
-
-### Chạy Seeder
-- Chạy một seeder cụ thể:
-  ```bash
-  php artisan db:seed --class=SeederName
-  ```
-
-- Chạy tất cả các seeder:
-  ```bash
-  php artisan db:seed
-  ```
-
-### Sử dụng Factory trong Seeder
-Trong file seeder, bạn có thể sử dụng factory để tạo dữ liệu giả lập:
-```php
-\App\Models\ModelName::factory()->count(10)->create();
-```
-
-## 11. Tài liệu tham khảo
-- [Laravel Official Documentation](https://laravel.com/docs)
-- [Laravel UI](https://github.com/laravel/ui)
-- [Spatie](https://github.com/laravel/ui](https://spatie.be/docs/laravel-permission/v5/introduction))
-- [Password-hash](https://onlinephp.io/password-hash)
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
