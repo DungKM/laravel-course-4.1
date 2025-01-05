@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Users\StoreRequest;
 use App\Models\User;
+use DOMDocument;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -29,29 +32,50 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        $request->validate([
-            'name' => 'required|max:255',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
+        $validatedData = $request->validated();
+
+        $description = $request->description;
+        $dom = new DOMDocument();
+        $dom->loadHTML($description, 9);
+
+
+        $images = $dom->getElementsByTagName('img');
+        foreach ($images as $key => $img) {
+            $data = base64_decode(explode(',', explode(';', $img->getAttribute('src'))[1])[1]);
+            $image_name = "/upload/" . time() . $key . '.png';
+
+
+            \Storage::disk('public')->put($image_name, $data);
+            $url = asset('http://127.0.0.1:8000/storage' . $image_name);
+            $img->removeAttribute('src');
+            $img->setAttribute('src', $url);
+        }
+
+        $user = User::create([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'password' => bcrypt($validatedData['password']),
+            'description' =>  $description,
         ]);
 
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-        ]);
+        if ($user instanceof Model) {
+            toastr()->success('Create user saved successfully!');
 
-        return redirect()->route('users.index');
+            return redirect()->route('users.index');
+        }
+        toastr()->error('An error has occurred please try again later.');
+        return back();
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(User $user)
     {
-        //
+        $title = "Show user";
+        return view('pages.users.show', compact('user', 'title'));
     }
 
     /**
@@ -84,8 +108,12 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $user->delete();
+        $user_delete =  $user->delete();
+        if ($user_delete) {
+            toastr()->success('Delete user successfully!');
+        } else {
+            toastr()->error('An error has occurred please try again later.');
+        }
         return redirect()->route('users.index');
     }
-    
 }

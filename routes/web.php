@@ -42,9 +42,11 @@ use Illuminate\Support\Facades\Route;
 // url : Đường dẫn website 
 // callback : function để truyền dự liệu 
 
+Route::get('/', [UserController::class, 'index'])->name('users.index');
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
 Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
 Route::get('/users/edit/{user}', [UserController::class, 'edit'])->name('users.edit');
 Route::put('/users/update/{user}', [UserController::class, 'update'])->name('users.update');
 Route::delete('/users/delete/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+Route::get('/user/{user}', [UserController::class, 'show'])->name('users.show');
