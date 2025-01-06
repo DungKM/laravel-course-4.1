@@ -1,4 +1,29 @@
 <x-guest-layout>
+    <style>
+        .btn-google {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            background-color: #4285F4;
+            color: white;
+            border: none;
+            border-radius: 0.375rem;
+            font-size: 1rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+    
+        .btn-google:hover {
+            background-color: #357ae8;
+        }
+    
+        .btn-google img {
+            width: 20px;
+            height: 20px;
+            margin-right: 0.5rem;
+        }
+    </style>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
@@ -43,5 +68,12 @@
                 {{ __('Log in') }}
             </x-primary-button>
         </div>
+        <!-- Google Login Button -->
+    <div class="flex items-center justify-center mt-4">
+        <a href="{{ route('google.login') }}" class="btn btn-google">
+            <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Logo" class="mr-2">
+            {{ __('Log in with Google') }}
+        </a>
+    </div>
     </form>
 </x-guest-layout>

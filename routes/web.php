@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -36,4 +37,7 @@ Route::get('/users/edit/{user}', [UserController::class, 'edit'])->name('users.e
 Route::put('/users/update/{user}', [UserController::class, 'update'])->name('users.update');
 Route::delete('/users/delete/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 Route::get('/user/{user}', [UserController::class, 'show'])->name('users.show');
+
+Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
+Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 require __DIR__.'/auth.php';
