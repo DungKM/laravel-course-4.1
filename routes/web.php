@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,34 +14,21 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-// Home
-// Route::get('/', function () {
-//     return view('pages.home.index');
-// })->name('home');
 
-// Route::get('/', [HomeController::class, 'index']);
-// Route::get('/shop', [ProductController::class, 'index']);
-// Route::get('/shop/{id}/{name}/{price}', [ProductController::class, 'show']);
-// Shop
-// Route::get('/shop', function () {
-//     return view('pages.product.index');
-// })->name('shop');
-// Route::get('/hello', function () {
-//     return view('hello');
-// })->name('hello');
-// Route::get($uri, $callback);
+Route::get('/', function () {
+    return view('welcome');
+});
 
-// Route::get('user/{id}/{name}/{comment}', function ($id, $name, $comment) {
-//     echo "ID của user là : " . $id;
-//     echo "<br>Tên của user là : " . $name;
-//     echo "<br> Comment của user: " . $comment;
-// })->name('user.welcome');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-// $url = route('user.welcome', ['id' => "1"]);
-// url : Đường dẫn website 
-// callback : function để truyền dự liệu 
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-Route::get('/', [UserController::class, 'index'])->name('users.index');
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
 Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
@@ -50,3 +36,4 @@ Route::get('/users/edit/{user}', [UserController::class, 'edit'])->name('users.e
 Route::put('/users/update/{user}', [UserController::class, 'update'])->name('users.update');
 Route::delete('/users/delete/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 Route::get('/user/{user}', [UserController::class, 'show'])->name('users.show');
+require __DIR__.'/auth.php';
