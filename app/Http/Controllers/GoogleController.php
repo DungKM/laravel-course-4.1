@@ -18,9 +18,10 @@ class GoogleController extends Controller
     }
     public function handleGoogleCallback()
     {
+
         try {
             $googleUser = Socialite::driver('google')->stateless()->user();
-
+            
             $user = User::updateOrCreate(
                 [
                     'email' => $googleUser->getEmail()
@@ -28,7 +29,7 @@ class GoogleController extends Controller
                 [
                     'name' => $googleUser->getName(),
                     'google_id' => $googleUser->getId(),
-                    'avatar' => $googleUser->getAvatar(),
+                    'description' => "This is a Google user",
                     'password' => Hash::make(Str::random(24)) // Random password hashed
                 ]
             );

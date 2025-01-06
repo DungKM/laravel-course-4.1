@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GithubController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -40,4 +41,6 @@ Route::get('/user/{user}', [UserController::class, 'show'])->name('users.show');
 
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
-require __DIR__.'/auth.php';
+Route::get('auth/github', [GithubController::class, 'redirectToGithub'])->name('github.login');
+Route::get('auth/git/callback', [GithubController::class, 'handleGithubCallback']);
+require __DIR__ . '/auth.php';
