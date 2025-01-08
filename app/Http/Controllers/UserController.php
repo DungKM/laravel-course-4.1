@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Users\StoreRequest;
+use App\Models\GoogleDrive;
 use App\Models\User;
 use DOMDocument;
 use Illuminate\Database\Eloquent\Model;
@@ -32,20 +33,19 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRequest $request)
+    public function store(StoreRequest $request, GoogleDrive $googleDriveService)
     {
         $validatedData = $request->validated();
 
+        // Xử lý description
         $description = $request->description;
-        $dom = new DOMDocument();
+        $dom = new \DOMDocument();
         $dom->loadHTML($description, 9);
-
 
         $images = $dom->getElementsByTagName('img');
         foreach ($images as $key => $img) {
             $data = base64_decode(explode(',', explode(';', $img->getAttribute('src'))[1])[1]);
             $image_name = "/upload/" . time() . $key . '.png';
-
 
             \Storage::disk('public')->put($image_name, $data);
             $url = asset('http://127.0.0.1:8000/storage' . $image_name);
@@ -53,19 +53,35 @@ class UserController extends Controller
             $img->setAttribute('src', $url);
         }
 
+        $avatarDriveId = null;
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar');
+            $filePath = $avatar->getRealPath();
+            $fileName = 'avatar_' . time() . '.' . $avatar->getClientOriginalExtension();
+            $mimeType = $avatar->getMimeType();
+
+            $folderId = env('GOOGLE_DRIVE_FOLDER_ID');
+            $response = $googleDriveService->uploadFile($filePath, $fileName, $mimeType, $folderId);
+
+            $avatarDriveId = $response->id; // Hoặc $response->webViewLink nếu muốn lưu link
+        }
+
+        // Tạo user
         $user = User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => bcrypt($validatedData['password']),
-            'description' =>  $description,
+            'description' => $description,
+            'avatar_url' => $avatarDriveId ? "https://drive.google.com/uc?id=" . $avatarDriveId : null,
         ]);
 
+        // Xử lý kết quả
         if ($user instanceof Model) {
-            toastr()->success('Create user saved successfully!');
-
+            toastr()->success('User created and avatar uploaded successfully!');
             return redirect()->route('users.index');
         }
-        toastr()->error('An error has occurred please try again later.');
+
+        toastr()->error('An error occurred. Please try again later.');
         return back();
     }
 

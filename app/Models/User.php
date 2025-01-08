@@ -26,6 +26,8 @@ class User extends Authenticatable
         'github_id',
         'github_token',
         'github_refresh_token',
+        'avatar_drive_id',
+        'avatar_url',
     ];
 
     /**

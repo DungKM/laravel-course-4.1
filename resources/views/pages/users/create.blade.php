@@ -14,7 +14,7 @@
 @section('content')
     <div class="container">
         <h1>Create user</h1>
-        <form action="{{ route('users.store') }}" method="POST">
+        <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <label for="name" class="form-label">Name:</label><br>
             <input type="text" name="name" value="{{ old('name') }}" class="form-control"><br>
@@ -24,19 +24,21 @@
                 </div>
             @enderror
             <label for="email" class="form-label">Email:</label><br>
-            <input type="email" name="email" value="{{ old('email') }}" class="form-control"><br><br>
+            <input type="email" name="email" value="{{ old('email') }}" class="form-control"><br>
             @error('email')
                 <div style="color: red">
                     {{ $message }}
                 </div>
             @enderror
             <label for="password" class="form-label">Password:</label><br>
-            <input type="password" name="password" value="{{ old('password') }}" class="form-control"><br><br>
+            <input type="password" name="password" value="{{ old('password') }}" class="form-control"><br>
             @error('password')
                 <div style="color: red">
                     {{ $message }}
                 </div>
             @enderror
+            <label for="avatar" class="form-label">Avatar:</label><br>
+            <input type="file" name="avatar" id="" class="form-control"><br>
             <label for="description" class="form-label">Description:</label><br>
             <textarea name="description" class="form-control" id="summernote" cols="30" rows="10">{{ old('description') }}</textarea>
             @error('description')
